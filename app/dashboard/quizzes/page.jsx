@@ -30,6 +30,19 @@ const FetchQuizzes = () => {
     if (userIs === "student" || userIs === "teacher") {
       setUserRole(userIs);
     }
+    const fetchUserDetails = async (userId) => {
+      try {
+        const response = await fetch(`/api/users/${userId}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user details");
+        }
+        const userData = await response.json();
+        console.log(userData);
+        setUserClass(userData.class); // Assuming `class` is a field in the user object
+      } catch (err) {
+        setError(err.message);
+      }
+    };
 
     const fetchQuizzes = async () => {
       try {
@@ -68,19 +81,6 @@ const FetchQuizzes = () => {
   if (error) {
     return <p>Error: {error}</p>;
   }
-  const fetchUserDetails = async (userId) => {
-    try {
-      const response = await fetch(`/api/users/${userId}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch user details");
-      }
-      const userData = await response.json();
-      console.log(userData);
-      setUserClass(userData.class); // Assuming `class` is a field in the user object
-    } catch (err) {
-      setError(err.message);
-    }
-  };
 
   const filteredQuizzes =
     userRole === "student"
