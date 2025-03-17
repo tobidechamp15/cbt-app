@@ -71,11 +71,15 @@ import { useEffect, useState } from "react";
 
 const Page = () => {
   const [results, setResults] = useState([]);
-
-  const userId = sessionStorage.getItem("userID");
-  const userRole = sessionStorage.getItem("userRole");
+  const [userId, setUserId] = useState("");
+  const [userRole, setUserRole] = useState("");
 
   useEffect(() => {
+    const userRole = sessionStorage.getItem("userRole");
+    setUserRole(userRole);
+    const userId = sessionStorage.getItem("userID");
+    setUserId(userId);
+
     const fetchResults = async () => {
       try {
         const res = await fetch("/api/submit-quiz");
