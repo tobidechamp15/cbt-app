@@ -10,7 +10,6 @@ const FetchQuizzes = () => {
   const [userRole, setUserRole] = useState("");
   const [userClass, setUserClass] = useState("");
 
-  const userId = sessionStorage.getItem("userID");
   // Function to fetch the user by ID
   const fetchCreatedByUserName = async (id) => {
     try {
@@ -56,7 +55,10 @@ const FetchQuizzes = () => {
         setLoading(false);
       }
     };
+    const userId = sessionStorage.getItem("userID");
+
     fetchQuizzes();
+    fetchUserDetails(userId);
   }, []); // Only run once when component mounts
 
   if (loading) {
@@ -79,7 +81,6 @@ const FetchQuizzes = () => {
       setError(err.message);
     }
   };
-  fetchUserDetails(userId);
 
   const filteredQuizzes =
     userRole === "student"
