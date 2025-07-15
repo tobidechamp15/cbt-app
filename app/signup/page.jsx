@@ -85,7 +85,7 @@ export default function Signup() {
         <div className="w-full">
           <label className="block text-sm font-medium">Your Name</label>
           <input
-            type="text"
+            type="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
